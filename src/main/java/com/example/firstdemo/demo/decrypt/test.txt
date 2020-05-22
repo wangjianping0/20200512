@@ -1,0 +1,6 @@
+{
+"service":"test",
+"service_version":"1.0",
+"partner":"携程借去花",
+"product_no":"ious"
+}
