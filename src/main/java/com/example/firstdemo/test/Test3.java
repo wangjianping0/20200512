@@ -1,10 +1,12 @@
 package com.example.firstdemo.test;
 
 import com.alibaba.fastjson.JSON;
+import com.example.firstdemo.util.DateUtils;
 import com.example.firstdemo.util.JsonSerializer;
 import lombok.Data;
 
 import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,6 +17,20 @@ public class Test3 {
         System.out.println("这是一个测试汉字是否乱码的demo");
         System.out.println("这是一个测试汉字是否乱码的demo");
         System.out.println("这是一个测试汉字是否乱码的demo");
+        System.out.println("------------------------------------");
+
+        String qiri = "";
+        String zhiri = "";
+        String huankuanqiri = "";
+        Date date = new Date();
+        qiri = DateUtils.toDateString(date);
+        Date nextMonDate = DateUtils.addMonths(date, 1);
+        huankuanqiri = DateUtils.toDateString(nextMonDate);
+        zhiri = DateUtils.toDateString(DateUtils.addDays(nextMonDate, -1));
+        System.out.println("qiri:" + qiri);
+        System.out.println("zhiri:" + zhiri);
+        System.out.println("huankuangiri: " + huankuanqiri);
+
         /*Map<String,Object> map=new HashMap<>();
         map.put("name","校长");
         map.put("age","123");
@@ -40,9 +56,10 @@ public class Test3 {
             System.out.println(field.getName());
         }*/
     }
+
     @Data
     static
-    class Demo{
+    class Demo {
         private String name;
         private String sex;
 
