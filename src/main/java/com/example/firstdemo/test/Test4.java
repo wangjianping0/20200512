@@ -18,14 +18,15 @@ public class Test4 {
             String sqlusedb="use superuser";
             int result1 = stmt.executeUpdate(sqlusedb);
             //创建表。
-            sql = "create table teacher(NO char(20),name varchar(20),primary key(NO))";
-            int result = stmt.executeUpdate(sql);
+//            sql = "create table teacher(NO char(20),name varchar(20),primary key(NO))";
+//            int result = stmt.executeUpdate(sql);
+            int result ;
             //插入数据。
-            if (result != -1) {
-                sql = "insert into teacher(NO,name) values('2016001','wangsan')";
-                result = stmt.executeUpdate(sql);
-                sql = "insert into teacher(NO,name) values('2016002','zhaosi')";
-                result = stmt.executeUpdate(sql);
+//            if (result != -1) {
+//                sql = "insert into teacher(NO,name) values('2016001','wangsan')";
+//                result = stmt.executeUpdate(sql);
+//                sql = "insert into teacher(NO,name) values('2016002','zhaosi')";
+//                result = stmt.executeUpdate(sql);
                 //查询数据。
                 sql = "select * from teacher";
                 ResultSet rs = stmt.executeQuery(sql);
@@ -34,7 +35,7 @@ public class Test4 {
                     System.out
                             .println(rs.getString(1) + "\t" + rs.getString(2));
                 }
-            }
+//            }
             //捕捉异常。
         } catch (SQLException e) {
             System.out.println("MySQL操作错误");

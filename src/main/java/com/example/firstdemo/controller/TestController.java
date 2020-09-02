@@ -5,12 +5,15 @@ import com.example.firstdemo.test.TestJDBCUtil;
 import com.example.firstdemo.test.TestSign;
 import com.example.firstdemo.util.FileUtils;
 import com.example.firstdemo.util.JsonSerializer;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.http.HttpProperties;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.io.*;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
@@ -46,4 +49,5 @@ public class TestController {
         System.out.println(JsonSerializer.serialize(map));
         return map;
     }
+
 }

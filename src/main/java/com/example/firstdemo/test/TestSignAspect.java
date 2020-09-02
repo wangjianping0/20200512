@@ -26,7 +26,7 @@ public class TestSignAspect {
         Object object = null;
         try {
             object=joinPoint.proceed(objects);
-            System.out.println(JsonSerializer.serialize(object));
+            System.out.println("切面中:"+JsonSerializer.serialize(object));
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }

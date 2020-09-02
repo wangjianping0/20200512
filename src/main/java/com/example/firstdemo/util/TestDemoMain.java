@@ -2,7 +2,7 @@ package com.example.firstdemo.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import sun.misc.BASE64Decoder;
+//import sun.misc.BASE64Decoder;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -23,8 +23,11 @@ public final class TestDemoMain {
      * @throws Exception
      */
     public static PublicKey getPubKey(String keyContent) throws Exception {
-        BASE64Decoder base64Decoder = new BASE64Decoder();
-        byte[] keyByte = base64Decoder.decodeBuffer(keyContent);
+//        BASE64Decoder base64Decoder = new BASE64Decoder();
+//        byte[] keyByte = base64Decoder.decodeBuffer(keyContent);
+        // 从JKD 9开始rt.jar包已废除，从JDK 1.8开始使用java.util.Base64.Decoder
+        Base64.Decoder base64Decoder = Base64.getDecoder();
+        byte[] keyByte = base64Decoder.decode(keyContent);
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         X509EncodedKeySpec keySpec = new X509EncodedKeySpec(keyByte);
         return keyFactory.generatePublic(keySpec);
@@ -37,8 +40,11 @@ public final class TestDemoMain {
      * @throws Exception
      */
     public static PrivateKey getPrivateKey(String keyContent) throws Exception {
-        BASE64Decoder base64Decoder = new BASE64Decoder();
-        byte[] keyByte = base64Decoder.decodeBuffer(keyContent);
+//        BASE64Decoder base64Decoder = new BASE64Decoder();
+//        byte[] keyByte = base64Decoder.decodeBuffer(keyContent);
+        // 从JKD 9开始rt.jar包已废除，从JDK 1.8开始使用java.util.Base64.Decoder
+        Base64.Decoder base64Decoder = Base64.getDecoder();
+        byte[] keyByte = base64Decoder.decode(keyContent);
         KeyFactory kf = KeyFactory.getInstance("RSA");
         PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(keyByte);
         return kf.generatePrivate(keySpec);

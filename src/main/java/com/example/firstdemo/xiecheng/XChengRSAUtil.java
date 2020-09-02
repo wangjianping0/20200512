@@ -6,8 +6,8 @@ import com.google.common.base.Strings;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
+//import sun.misc.BASE64Decoder;
+//import sun.misc.BASE64Encoder;
 
 import javax.crypto.Cipher;
 import java.io.BufferedReader;
@@ -17,6 +17,7 @@ import java.security.*;
 import java.security.interfaces.RSAKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.Base64;
 
 public class XChengRSAUtil {
 
@@ -62,9 +63,11 @@ public class XChengRSAUtil {
     public static PrivateKey initPrivateKeyByContent(String keyContent) throws Exception {
         Preconditions.checkNotNull(keyContent);
 
-        BASE64Decoder base64Decoder = new BASE64Decoder();
-        byte[] keyByte = base64Decoder.decodeBuffer(keyContent);
-
+//        BASE64Decoder base64Decoder = new BASE64Decoder();
+//        byte[] keyByte = base64Decoder.decodeBuffer(keyContent);
+        // 从JKD 9开始rt.jar包已废除，从JDK 1.8开始使用java.util.Base64.Decoder
+        Base64.Decoder base64Decoder = Base64.getDecoder();
+        byte[] keyByte = base64Decoder.decode(keyContent);
         KeyFactory kf = KeyFactory.getInstance(ENCRYPT_ALGORITHM);
         PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(keyByte);
         return kf.generatePrivate(keySpec);
@@ -106,9 +109,11 @@ public class XChengRSAUtil {
     public static PublicKey initPublicKeyByContent(String keyContent) throws Exception{
         Preconditions.checkNotNull(keyContent, "检查安全存储配置或是否已初始化");
 
-        BASE64Decoder base64Decoder = new BASE64Decoder();
-        byte[] keyByte = base64Decoder.decodeBuffer(keyContent);
-
+//        BASE64Decoder base64Decoder = new BASE64Decoder();
+//        byte[] keyByte = base64Decoder.decodeBuffer(keyContent);
+        // 从JKD 9开始rt.jar包已废除，从JDK 1.8开始使用java.util.Base64.Decoder
+        Base64.Decoder base64Decoder = Base64.getDecoder();
+        byte[] keyByte = base64Decoder.decode(keyContent);
         KeyFactory kf = KeyFactory.getInstance(ENCRYPT_ALGORITHM);
         X509EncodedKeySpec keySpec = new X509EncodedKeySpec(keyByte);
 //        PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(keyByte);
@@ -130,9 +135,11 @@ public class XChengRSAUtil {
 
         byte[] signByte = signature.sign();
 
-        BASE64Encoder base64Encoder = new BASE64Encoder();
-
-        return base64Encoder.encodeBuffer(signByte);
+//        BASE64Encoder base64Encoder = new BASE64Encoder();
+//        return base64Encoder.encodeBuffer(signByte);
+        // 从JKD 9开始rt.jar包已废除，从JDK 1.8开始使用java.util.Base64.Decoder
+        Base64.Decoder base64Decoder = Base64.getDecoder();
+        return new String(base64Decoder.decode(signByte),charset);
     }
 
     /**
@@ -150,9 +157,11 @@ public class XChengRSAUtil {
             signature.initVerify(publicKey);
             signature.update(content.getBytes(charset));
 
-            BASE64Decoder base64Decoder = new BASE64Decoder();
-            byte[] keyByte = base64Decoder.decodeBuffer(sign);
-
+//            BASE64Decoder base64Decoder = new BASE64Decoder();
+//            byte[] keyByte = base64Decoder.decodeBuffer(sign);
+            // 从JKD 9开始rt.jar包已废除，从JDK 1.8开始使用java.util.Base64.Decoder
+            Base64.Decoder base64Decoder = Base64.getDecoder();
+            byte[] keyByte = base64Decoder.decode(sign);
             return signature.verify(keyByte);
         } catch (Exception e) {
             logger.error("验签出现异常",e);
@@ -194,9 +203,11 @@ public class XChengRSAUtil {
             offSet = i * maxEncryptBlock;
         }
 
-        BASE64Encoder base64Encoder = new BASE64Encoder();
-
-        return base64Encoder.encodeBuffer(out.toByteArray());
+//        BASE64Encoder base64Encoder = new BASE64Encoder();
+//        return base64Encoder.encodeBuffer(out.toByteArray());
+        // 从JKD 9开始rt.jar包已废除，从JDK 1.8开始使用java.util.Base64.Encoder
+        Base64.Encoder base64Encoder = Base64.getEncoder();
+        return base64Encoder.encodeToString(out.toByteArray());
     }
 
     /**
@@ -214,9 +225,11 @@ public class XChengRSAUtil {
         Cipher cipher = Cipher.getInstance(ENCRYPT_ALGORITHM);
         cipher.init(Cipher.DECRYPT_MODE,key);
 
-        BASE64Decoder base64Decoder = new BASE64Decoder();
-        byte[] encryptedData = base64Decoder.decodeBuffer(encryptedContent);
-
+//        BASE64Decoder base64Decoder = new BASE64Decoder();
+//        byte[] encryptedData = base64Decoder.decodeBuffer(encryptedContent);
+    // 从JKD 9开始rt.jar包已废除，从JDK 1.8开始使用java.util.Base64.Decoder
+        Base64.Decoder base64Decoder = Base64.getDecoder();
+        byte[] encryptedData = base64Decoder.decode(encryptedContent);
         int inputLen = encryptedData.length;
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         int offSet = 0;

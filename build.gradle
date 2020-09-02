@@ -77,6 +77,11 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.redisson/redisson
     compile group: 'org.redisson', name: 'redisson', version: '3.13.0'
+    // https://mvnrepository.com/artifact/com.rabbitmq/amqp-client
+    compile group: 'com.rabbitmq', name: 'amqp-client', version: '5.9.0'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools
+    compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.3.0.RELEASE'
+
 
 
 }

@@ -3,8 +3,8 @@ package com.example.firstdemo.test;
 import org.bouncycastle.asn1.ASN1Sequence;
 import org.bouncycastle.asn1.pkcs.RSAPrivateKeyStructure;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
+//import sun.misc.BASE64Decoder;
+//import sun.misc.BASE64Encoder;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -17,6 +17,7 @@ import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.RSAPrivateKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.Base64;
 
 public class RSAEncrypt {
     /**
@@ -101,8 +102,10 @@ public class RSAEncrypt {
      */
     public void loadPublicKey(String publicKeyStr) throws Exception{
         try {
-            BASE64Decoder base64Decoder= new BASE64Decoder();
-            byte[] buffer= base64Decoder.decodeBuffer(publicKeyStr);
+//            BASE64Decoder base64Decoder= new BASE64Decoder();
+//            byte[] buffer= base64Decoder.decodeBuffer(publicKeyStr);
+            Base64.Decoder base64Decoder = Base64.getDecoder();
+            byte[] buffer = base64Decoder.decode(publicKeyStr);
             KeyFactory keyFactory= KeyFactory.getInstance("RSA");
             X509EncodedKeySpec keySpec= new X509EncodedKeySpec(buffer);
             this.publicKey= (RSAPublicKey) keyFactory.generatePublic(keySpec);
@@ -110,8 +113,6 @@ public class RSAEncrypt {
             throw new Exception("无此算法");
         } catch (InvalidKeySpecException e) {
             throw new Exception("公钥非法");
-        } catch (IOException e) {
-            throw new Exception("公钥数据内容读取错误");
         } catch (NullPointerException e) {
             throw new Exception("公钥数据为空");
         }
@@ -146,9 +147,11 @@ public class RSAEncrypt {
 
     public void loadPrivateKey(String privateKeyStr) throws Exception{
         try {
-            BASE64Decoder base64Decoder= new BASE64Decoder();
-            byte[] buffer= base64Decoder.decodeBuffer(privateKeyStr);
-
+//            BASE64Decoder base64Decoder= new BASE64Decoder();
+//            byte[] buffer= base64Decoder.decodeBuffer(privateKeyStr);
+            // 从JKD 9开始rt.jar包已废除，从JDK 1.8开始使用java.util.Base64.Decoder
+            Base64.Decoder base64Decoder = Base64.getDecoder();
+            byte[] buffer = base64Decoder.decode(privateKeyStr);
             RSAPrivateKeyStructure asn1PrivKey = new RSAPrivateKeyStructure((ASN1Sequence) ASN1Sequence.fromByteArray(buffer));
             RSAPrivateKeySpec rsaPrivKeySpec = new RSAPrivateKeySpec(asn1PrivKey.getModulus(), asn1PrivKey.getPrivateExponent());
             KeyFactory keyFactory= KeyFactory.getInstance("RSA");
@@ -281,8 +284,11 @@ public class RSAEncrypt {
             byte[] cipher = rsaEncrypt.encrypt(rsaEncrypt.getPublicKey(), encryptStr.getBytes());
             //解密
             byte[] plainText = rsaEncrypt.decrypt(rsaEncrypt.getPrivateKey(), cipher);
-            BASE64Encoder encode = new BASE64Encoder();
-            String buffer= encode.encode(cipher);
+//            BASE64Encoder encode = new BASE64Encoder();
+//            String buffer= encode.encode(cipher);
+            // 从JKD 9开始rt.jar包已废除，从JDK 1.8开始使用java.util.Base64.Encoder
+            Base64.Encoder encoder = Base64.getEncoder();
+            String buffer = encoder.encodeToString(cipher);
             System.out.println("加密后:");
             System.out.println(new String(buffer));
             System.out.println("解密后:");
