@@ -6,7 +6,7 @@ import com.rabbitmq.client.*;
 import java.io.IOException;
 
 public class Customer {
-    static final String QUEUE_NAME="simple_queue";
+    static final String QUEUE_NAME="SMS_simple_queue";
     public static void main(String[] args) throws Exception{
         //1.创建连接工厂
         //2.创建连接

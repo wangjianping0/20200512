@@ -11,11 +11,13 @@ public class RabbitConnectionUtil {
         //1.创建连接工厂(设置rabbitMQ连接参数)
         ConnectionFactory connectionFactory = new ConnectionFactory();
         //主机;默认localhost
-        connectionFactory.setHost("localhost");
+//        connectionFactory.setHost("localhost");
+        connectionFactory.setHost("47.103.118.102");
         //连接端口;默认是5672
         connectionFactory.setPort(5672);
         //虚拟主机:默认/
-        connectionFactory.setVirtualHost("/itcast");
+//        connectionFactory.setVirtualHost("/itcast");
+        connectionFactory.setVirtualHost("/sms");
         //用户名:默认guest
         connectionFactory.setUsername("guest");
         //密码:默认guest

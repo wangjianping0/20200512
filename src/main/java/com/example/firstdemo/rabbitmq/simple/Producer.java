@@ -5,7 +5,7 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 
 public class Producer {
-    static final String QUEUE_NAME="simple_queue";
+    static final String QUEUE_NAME="SMS_simple_queue";
 
     public static void main(String[] args) throws Exception{
         /*//1.创建连接工厂(设置rabbitMQ连接参数)
